@@ -1,13 +1,15 @@
 package com.wayne.record;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.wayne.record.Record.DataOfBirth;
-
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
 public class Record {
-
-	public String lastName;
-	public String firstName;
-	public String gender;
-	public String favoriteColor;
+//	{"DateOfBirth":"4/9/1934","FirstName":"test","LastName":"test","Gender":"test","FavoriteColor":"test"}
+	@JsonProperty("LastName")public String lastName;
+	@JsonProperty("FirstName")public String firstName;
+	@JsonProperty("Gender")public String gender;
+	@JsonProperty("FavoriteColor")public String favoriteColor;
 	public DataOfBirth dataOfBirth;
 
 	public Record(String lastName, String firstName, String gender, String favoriteColor, int day, int month,

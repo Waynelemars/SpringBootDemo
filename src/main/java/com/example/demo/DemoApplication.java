@@ -21,10 +21,18 @@ import org.json.JSONObject;
 public class DemoApplication {
 
 	static public ArrayList<Record> records;
+	public static ArrayList<Record> recordCom;
+	public static ArrayList<Record> recordSpa;
+	public static ArrayList<Record> recordPip;
 	
 	public static void main(String[] args) {
 		
 		records = new ArrayList<Record>();
+		
+		recordCom = new ArrayList<Record>();
+		recordSpa = new ArrayList<Record>();
+		recordPip= new ArrayList<Record>();
+		
 		String[] files = new String[3];
 		files[0] = "ingest-files/person_comma_delim.csv";
 		files[1] = "ingest-files/person_space_delim.csv";
@@ -33,7 +41,7 @@ public class DemoApplication {
 			readFileFromName(f);
 		}
 		
-		for ( Record r: records) {
+		for ( Record r: recordSpa) {
 			System.out.println(r.lastName + " " + r.firstName + " " + r.gender + " " + r.favoriteColor + " " + r.dataOfBirth);
 			
 		}
@@ -122,7 +130,15 @@ public class DemoApplication {
 			String gender = line[2];
 			String color = line[3];
 			String[] birth = line[4].split("[/]"); 
-			records.add(new Record(lName, fName, gender, color, Integer.parseInt(birth[0]), Integer.parseInt(birth[1]), Integer.parseInt(birth[2]) ));
+			records.add(new Record(lName, fName, gender, color, Integer.parseInt(birth[0]), Integer.parseInt(birth[1]), Integer.parseInt(birth[2])));
+			
+			if (fileName.equals("ingest-files/person_comma_delim.csv")) {
+				recordCom.add(new Record(lName, fName, gender, color, Integer.parseInt(birth[0]), Integer.parseInt(birth[1]), Integer.parseInt(birth[2])));
+			} else if (fileName.equals("ingest-files/person_space_delim.csv")) {
+				recordSpa.add(new Record(lName, fName, gender, color, Integer.parseInt(birth[0]), Integer.parseInt(birth[1]), Integer.parseInt(birth[2])));
+			} else {
+				recordPip.add(new Record(lName, fName, gender, color, Integer.parseInt(birth[0]), Integer.parseInt(birth[1]), Integer.parseInt(birth[2])));
+			}
 			
 
 		}
