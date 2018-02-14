@@ -9,6 +9,7 @@ public class Test{
 	
 	//Note: must add this default constructor otherwise when you pass json payload to post method. Spring boot cannot help you translate from json to your object
 	//Debug this for a long time
+	//Reference http://www.baeldung.com/jackson-exception
 	public Test() {
 		
 	}

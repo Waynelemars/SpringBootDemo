@@ -1,5 +1,8 @@
 package com.example.demo;
 
+import java.awt.List;
+import java.util.ArrayList;
+
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestBody;
 //import org.json.JSONObject;
@@ -47,19 +50,43 @@ public class RecordController {
 	
 	//post
 	@RequestMapping(method = RequestMethod.POST,value = "/record",params = {"fileName"})
-	public String postRecord(@RequestBody Test test, @RequestParam(value="fileName") String fileName) {
-//		DemoApplication.records.add(record);	
+	public String postRecord(@RequestBody Record record, @RequestParam(value="fileName") String fileName) {
 
-		return fileName + test.a;
+		DemoApplication.records.add(record);
+			
+		if (fileName.equals("ingest-files/person_comma_delim.csv")) {
+			DemoApplication.recordCom.add(record);
+			System.out.println("hello");
+			return "add to comma file";
+		} else if (fileName.equals("ingest-files/person_space_delim.csv")) {
+			DemoApplication.recordSpa.add(record);
+			return "add to space file";
+		} else if(fileName.equals("ingest-files/person_pipe_delim.csv")){
+			DemoApplication.recordPip.add(record);
+			return "add to pip file";
+		} else {
+			return "successfully add to file " + fileName;
+			
+		}	
 	}
 	
 
 	
 	//put
 	@RequestMapping(method = RequestMethod.PUT,value = "/record")
-	public String putRecord() {
-		
-		
+	public String putRecord(@RequestBody Record record) {
+		ArrayList<Record> records = DemoApplication.records;
+		for (int i = 0 ; i < records.size() ; i++) {
+			Record exR = records.get(i);
+			if (exR.firstName.equals(record.firstName) && exR.lastName.equals(record.lastName) ) {
+				exR.favoriteColor = record.favoriteColor ;
+				exR.gender = record.gender;
+				exR.day = record.day;
+				exR.month = record.month;
+				exR.year = record.year;
+			}
+		}
+	
 	
 		return "put";
 	

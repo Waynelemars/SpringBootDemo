@@ -6,12 +6,23 @@ import com.wayne.record.Record.DataOfBirth;
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
 public class Record {
 //	{"DateOfBirth":"4/9/1934","FirstName":"test","LastName":"test","Gender":"test","FavoriteColor":"test"}
-	@JsonProperty("LastName")public String lastName;
-	@JsonProperty("FirstName")public String firstName;
-	@JsonProperty("Gender")public String gender;
-	@JsonProperty("FavoriteColor")public String favoriteColor;
-	public DataOfBirth dataOfBirth;
+	public String lastName;
+	public String firstName;
+	public String gender;
+	public String favoriteColor;
+	public  int day;
+	public  int month;
+	public  int year;
+	public DataOfBirth dataOfBirth = new DataOfBirth(day,month,year);
 
+
+	//Note: must add this default constructor otherwise when you pass json payload to post method. Spring boot cannot help you translate from json to your object
+	//Debug this for a long time
+	//Reference http://www.baeldung.com/jackson-exception
+	public Record() {
+		
+	}
+	
 	public Record(String lastName, String firstName, String gender, String favoriteColor, int day, int month,
 			int year) {
 		this.lastName = lastName;
