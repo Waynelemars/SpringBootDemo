@@ -38,6 +38,7 @@ public class DemoApplication {
 		files[1] = "ingest-files/person_space_delim.csv";
 		files[2] = "ingest-files/person_pipe_delim.csv";
 		for(String f : files) {
+
 			readFileFromName(f);
 		}
 		
@@ -90,7 +91,6 @@ public class DemoApplication {
 
 			while ((line = bufferedReader.readLine()) != null) {
 				list.add(line);
-				// System.out.println(line);
 			}
 
 			bufferedReader.close();
@@ -104,6 +104,7 @@ public class DemoApplication {
 	}
 
 	public static void printTable(String fileName, ArrayList<String> content) {
+	
 
 		if (content.size() == 0) {
 			System.out.println("Empty File");
@@ -131,12 +132,15 @@ public class DemoApplication {
 			String color = line[3];
 			String[] birth = line[4].split("[/]"); 
 			records.add(new Record(lName, fName, gender, color, Integer.parseInt(birth[0]), Integer.parseInt(birth[1]), Integer.parseInt(birth[2])));
-			
+			System.out.println("times");
 			if (fileName.equals("ingest-files/person_comma_delim.csv")) {
+				System.out.println("i am comma");
 				recordCom.add(new Record(lName, fName, gender, color, Integer.parseInt(birth[0]), Integer.parseInt(birth[1]), Integer.parseInt(birth[2])));
 			} else if (fileName.equals("ingest-files/person_space_delim.csv")) {
+				System.out.println("i am space");
 				recordSpa.add(new Record(lName, fName, gender, color, Integer.parseInt(birth[0]), Integer.parseInt(birth[1]), Integer.parseInt(birth[2])));
 			} else {
+				System.out.println("i am pip");
 				recordPip.add(new Record(lName, fName, gender, color, Integer.parseInt(birth[0]), Integer.parseInt(birth[1]), Integer.parseInt(birth[2])));
 			}
 			

@@ -29,6 +29,11 @@ public class Record {
 		this.firstName = firstName;
 		this.gender = gender;
 		this.favoriteColor = favoriteColor;
+		
+	     this.day = day;
+		 this.month = month;
+		 this.year = year;
+		
 		this.dataOfBirth = new DataOfBirth(day, month, year);
 	}
 
