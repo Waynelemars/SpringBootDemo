@@ -1,6 +1,10 @@
 package com.example.demo;
 
 import java.awt.List;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.json.JSONObject;
@@ -51,23 +55,76 @@ public class RecordController {
 	//post
 	@RequestMapping(method = RequestMethod.POST,value = "/record",params = {"fileName"})
 	public String postRecord(@RequestBody Record record, @RequestParam(value="fileName") String fileName) {
-
-		DemoApplication.records.add(record);
-			
+//		files[0] = "ingest-files/person_comma_delim.csv";
+//		files[1] = "ingest-files/person_space_delim.csv";
+//		files[2] = "ingest-files/person_pipe_delim.csv";
+		DemoApplication.records.add(record);			
 		if (fileName.equals("ingest-files/person_comma_delim.csv")) {
 			DemoApplication.recordCom.add(record);
-			System.out.println("hello");
-			return "add to comma file";
+			try{
+			String content = "\n" + record.lastName + "," + record.firstName + "," + record.gender + "," + record.favoriteColor + "," + record.day + "/" + record.month + "/"  + record.year;
+			System.out.println("printing");
+		    	File file =new File("ingest-files/person_comma_delim.csv");
+		    	if(!file.exists()){
+		     	   file.createNewFile();
+		     	}
+		    	FileWriter fw = new FileWriter(file,true);
+		    	BufferedWriter bw = new BufferedWriter(fw);
+		    	bw.write(content);
+		    	bw.close();
+	
+			}catch(IOException ioe){
+		         System.out.println("Exception occurred:");
+		    	 ioe.printStackTrace();
+		    } 	
+			return "add to comma file successfully. You add LastName;" + record.lastName + " to the comma file" ;
 		} else if (fileName.equals("ingest-files/person_space_delim.csv")) {
 			DemoApplication.recordSpa.add(record);
-			return "add to space file";
+			
+			try{
+				String content = "\n" + record.lastName + "     " + record.firstName + "    " + record.gender + "    " + record.favoriteColor + "   " + record.day + "/" + record.month + "/"  + record.year;
+				System.out.println("printing");
+			    	File file =new File("ingest-files/person_space_delim.csv");
+			    	if(!file.exists()){
+			     	   file.createNewFile();
+			     	}
+			    	FileWriter fw = new FileWriter(file,true);
+			    	BufferedWriter bw = new BufferedWriter(fw);
+			    	bw.write(content);
+			    	bw.close();
+		
+				}catch(IOException ioe){
+			         System.out.println("Exception occurred:");
+			    	 ioe.printStackTrace();
+			    } 	
+			
+			
+			
+			
+			return "add to space file successfully. You add LastName: " + record.lastName + " to the space file";
 		} else if(fileName.equals("ingest-files/person_pipe_delim.csv")){
 			DemoApplication.recordPip.add(record);
-			return "add to pip file";
+			try{
+				String content = "\n" + record.lastName + "|" + record.firstName + "|" + record.gender + "|" + record.favoriteColor + "|" + record.day + "/" + record.month + "/"  + record.year;
+				System.out.println("printing");
+			    	File file =new File("ingest-files/person_pipe_delim.csv");
+			    	if(!file.exists()){
+			     	   file.createNewFile();
+			     	}
+			    	FileWriter fw = new FileWriter(file,true);
+			    	BufferedWriter bw = new BufferedWriter(fw);
+			    	bw.write(content);
+			    	bw.close();
+		
+				}catch(IOException ioe){
+			         System.out.println("Exception occurred:");
+			    	 ioe.printStackTrace();
+			    } 	
+			return "add to Pipe file successfully. You add LastName" + record.lastName + " to the Pipe file";
 		} else {
-			return "successfully add to file " + fileName;
-			
+			return "You didn't specify which file to add so it add to all file";	
 		}	
+
 	}
 	
 
